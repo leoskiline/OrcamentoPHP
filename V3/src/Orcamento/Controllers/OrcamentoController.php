@@ -32,6 +32,34 @@ class OrcamentoController
         return $response;
     }
 
+    public function update(Request $request, Response $response)
+    {
+        $dados = $request->getParsedBody();
+        $orcamento = new OrcamentoService($this->conn,$dados);
+        $status = $orcamento->atualizarDados();
+        $erros = $orcamento->getErros();
+        $retorno = [
+            "status" => $status,
+            "errors" => $erros
+        ];
+        $response->getBody()->write(json_encode($retorno));
+        return $response;
+    }
+
+    public function destroy(Request $request, Response $response)
+    {
+        $dados = $request->getParsedBody();
+        $orcamento = new OrcamentoService($this->conn,$dados);
+        $status = $orcamento->deletarDados();
+        $erros = $orcamento->getErros();
+        $retorno = [
+            "status" => $status,
+            "errors" => $erros
+        ];
+        $response->getBody()->write(json_encode($retorno));
+        return $response;
+    }
+
     public function store(Request $request, Response $response)
     {
         $dados = $request->getParsedBody();
@@ -46,6 +74,14 @@ class OrcamentoController
         return $response;
 
     }
+
+
+
+    //show -- retornar apenas um registro
+    //index -- retornar mais de um registro
+    //store -- executar um processo
+    //update -- responsavel por atualizar registro
+    //destry -- deletar registro
 }
 
 

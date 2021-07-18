@@ -29,4 +29,8 @@ $app->get('/orcamento/lista', OrcamentoController::class . ':index');
 
 $app->post('/orcamento/inserir', OrcamentoController::class . ':store');
 
+$app->put('/orcamento/atualizar', OrcamentoController::class . ':update');
+
+$app->delete('/orcamento/deletar', OrcamentoController::class . ':destroy');
+
 $app->run();
