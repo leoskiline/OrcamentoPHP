@@ -25,6 +25,20 @@ class OrcamentoRepository{
         return $this->dados;
     }
 
+    public function listaDadosID(int $id)
+    {
+        $sql = "SELECT * FROM orcamentosimples WHERE idOrcamento = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+        $stmt->execute();
+        $this->qtd = $stmt->rowCount();
+        if($this->qtd > 0)
+        {
+            $this->dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $this;
+    }
+
     public function listaDados()
     {
         $sql = "SELECT * FROM orcamentosimples";

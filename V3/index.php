@@ -25,6 +25,8 @@ $app->addBodyParsingMiddleware();
 // });
 
 
+$app->get('/orcamento/lista/{id}', OrcamentoController::class . ':show');
+
 $app->get('/orcamento/lista', OrcamentoController::class . ':index');
 
 $app->post('/orcamento/inserir', OrcamentoController::class . ':store');

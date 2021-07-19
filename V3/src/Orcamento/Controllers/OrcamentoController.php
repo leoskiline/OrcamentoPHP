@@ -17,6 +17,29 @@ class OrcamentoController
         $this->conn = (new Conexao())->exec();
     }
 
+    public function show(Request $request, Response $response,$args)
+    {
+        $id = $args['id'];
+        $orcamento = new OrcamentoRepository(($this->conn));
+        $orcamento->listaDadosID($id);
+        if($orcamento->getQtd() > 0){
+            $retorno = [
+                "status" => true,
+                "dados" => $orcamento->getDados(),
+                "qtd" => $orcamento->getQtd()
+            ];
+        }
+        else
+            $retorno = [
+                "status" => false,
+                "qtd" => $orcamento->getQtd()
+            ];
+
+        
+        $response->getBody()->write(json_encode($retorno));
+        return $response;
+    } 
+
     public function index(Request $request, Response $response)
     {
         $orcamento = new OrcamentoRepository($this->conn);
@@ -81,7 +104,7 @@ class OrcamentoController
     //index -- retornar mais de um registro
     //store -- executar um processo
     //update -- responsavel por atualizar registro
-    //destry -- deletar registro
+    //destroy -- deletar registro
 }
 
 
